@@ -2,7 +2,6 @@
 # It runs during container build time to get model weights built into the container
 import os
 import torch
-from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 import huggingface_hub
 import onnxruntime as rt
 
