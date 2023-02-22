@@ -6,3 +6,8 @@ torchvision==0.13.1
 ftfy==4.4.3
 accelerate
 scipy
+numpy
+onnxruntime
+opencv_python
+Pillow
+requests
