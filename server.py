@@ -6,6 +6,7 @@
 from sanic import Sanic, response
 import subprocess
 import app as user_src
+import huggingface_hub
 
 # We do the model load-to-GPU step on server startup
 # so the model object is available globally for reuse
@@ -33,7 +34,8 @@ def inference(request):
     except:
         model_inputs = request.json
 
-    output = user_src.inference(model_inputs)
+    #print(model_inputs[0]["image"])
+    output = user_src.inference(model_inputs[0]["image"])
 
     return response.json(output)
 

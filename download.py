@@ -13,6 +13,7 @@ def download_model():
     providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
     model_path = huggingface_hub.hf_hub_download("skytnt/anime-seg", "isnetis.onnx")
     rmbg_model = rt.InferenceSession(model_path, providers=providers)
+    return rmbg_model
     #scheduler = EulerDiscreteScheduler.from_pretrained(
     #   repo_id, 
     #   subfolder="scheduler", 
