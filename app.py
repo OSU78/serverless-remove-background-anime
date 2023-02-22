@@ -10,13 +10,13 @@ import cv2
 import huggingface_hub
 
 
-providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
-model_path = huggingface_hub.hf_hub_download("skytnt/anime-seg", "isnetis.onnx")
-rmbg_model = rt.InferenceSession(model_path, providers=providers)
+# providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+# model_path = huggingface_hub.hf_hub_download("skytnt/anime-seg", "isnetis.onnx")
+# rmbg_model = rt.InferenceSession(model_path, providers=providers)
 # Init is ran on server startup
 # Load your model to GPU as a global variable here using the variable name "model"
 def init():
-    global rmbg_model
+    global model
 
 def base64_to_numpy(string):
     img_data = base64.b64decode(string)
@@ -35,7 +35,7 @@ def get_mask(img, s=1024):
     img_input[ph // 2:ph // 2 + h, pw // 2:pw // 2 + w] = cv2.resize(img, (w, h))
     img_input = np.transpose(img_input, (2, 0, 1))
     img_input = img_input[np.newaxis, :]
-    mask = rmbg_model.run(None, {'img': img_input})[0][0]
+    mask = model.run(None, {'img': img_input})[0][0]
     mask = np.transpose(mask, (1, 2, 0))
     mask = mask[ph // 2:ph // 2 + h, pw // 2:pw // 2 + w]
     mask = cv2.resize(mask, (w0, h0))[:, :, np.newaxis]
